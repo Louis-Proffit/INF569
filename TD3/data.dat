@@ -1,0 +1,87 @@
+# Author: Louis Proffit
+# Date: 20200106
+# data.dat
+data;
+
+param T := 12;
+param N := 1;
+param tau := 2;
+param Theta := 0;
+
+param: unit_power_price :=
+1 50.17
+2 35.17
+3 35.15
+4 57.17
+5 90.00
+6 146.94
+7 95.00
+8 95.00
+9 90.61
+10 60.39
+11 95.62
+12 60.25;
+
+param:turbine_startup_cost :=
+1 75;
+
+param: pump_startup_cost :=
+1 75;
+
+param: pump_energy_startup_cost :=
+1 2;
+
+param: initial_turbine_status :=
+1 0;
+
+param: initial_pump_status :=
+1 0;
+
+param: min_flow :=
+1 8.5;
+
+param: max_flow :=
+1 42;
+
+param: initial_flow := 
+1 0;
+
+param: max_pump_flow :=
+1 -27;
+
+param: min_power :=
+1 -21.5;
+
+param: max_power :=
+1 infinity;
+
+param max_ramp_down := 70;
+param max_ramp_up := 70;
+
+param min_volume := 15000000;
+param max_volume := 33000000;
+param target_volume := 21078580;
+param initial_volume := 21078580;
+
+param: water_inflow :=
+1 5.32
+2 5.32
+3 5.32
+4 5.32
+5 5.32
+6 5.32
+7 5.32
+8 5.32
+9 5.32
+10 5.32
+11 5.32
+12 5.32;
+
+param max_water_spillage := infinity;
+
+param: W :=
+1 0.0583333;
+
+param: Y :=
+1 0;
+

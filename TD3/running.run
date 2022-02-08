@@ -1,0 +1,9 @@
+# Author: Louis Proffit
+# Date: 20200106
+# run.run
+
+model "model.mod";
+data "data.dat";
+option solver cplex;
+solve;
+display flow, pump_status, turbine_status;

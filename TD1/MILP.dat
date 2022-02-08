@@ -1,0 +1,44 @@
+# Author: Louis Proffit
+# Date: 20200106
+# data.dat
+data;
+
+set BUSES := B1 B2 B3 B4 B5;
+set GENERATORS := B1 B3 B4 B5;
+
+set LINES := (B1,B2) (B1,B4) (B1,B5) (B2,B3) (B3,B4) (B4,B5) ;
+
+param D :=
+B1 0,
+B2 300
+B3 300
+B4 400
+B5 0 ;
+
+param G :=
+B1 210
+B3 520
+B4 200
+B5 480 ;
+
+param C :=
+B1 14
+B3 30
+B4 40
+B5 10 ;
+
+param F :=
+B1 B2 400
+B1 B4 infinity
+B1 B5 infinity
+B2 B3 infinity
+B3 B4 infinity
+B4 B5 240 ;
+
+param X :=
+B1 B2 0.0161
+B1 B4 0.0174
+B1 B5 0.00367
+B2 B3 0.00618
+B3 B4 0.0170
+B4 B5 0.0170 ;

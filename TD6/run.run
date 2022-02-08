@@ -1,0 +1,15 @@
+model model.mod;
+data wf02_cb01_capex.dat;
+option solver cplex;
+
+solve;
+
+for {(i,j) in {V,V}}{
+	if (y[i,j] == 1) then {
+		printf "%d -> %d | type(s) : ",i,j;
+		for {t in T} {
+			if (x[i,j,t] == 1) then printf "%d ",t;
+		}
+		printf " | flow %f \n",f[i,j];
+	}
+}

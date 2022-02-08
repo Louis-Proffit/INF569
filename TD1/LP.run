@@ -1,0 +1,9 @@
+# Author: Louis Proffit
+# Date: 20200106
+# run.run
+
+model "LP.mod";
+data "LP.dat";
+option solver cplex;
+solve;
+display cost,theta,g,f;

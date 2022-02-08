@@ -1,0 +1,44 @@
+model model.mod;
+data wf01_cb01_capex.dat;
+option solver cplex;
+
+param nIter := 10;
+
+param bestCost;
+param bestY {V,V};
+
+param random;
+
+# Initialise solutions
+option cplex_options 'time=1';
+solve;
+for {(i,j) in {V,V}} let bestY[i,j] := y[i,j];
+let bestCost := cost;
+
+for {iter in 1..nIter}{
+	for {(i,j) in {V,V}}{
+		let random := Uniform01();
+		if (random < 0.5 and y[i,j] == 1) then fix y[i,j] := 1;
+	}
+	solve;
+	unfix y;
+	printf "Step %d done\n",iter;
+	if (cost < bestCost) then{
+		let bestCost := cost;
+		for {(i,j) in {V,V}} let bestY[i,j] := y[i,j];
+	}
+}
+
+# Final solving with previous best solution
+for {(i,j) in {V,V}} let y[i,j] := bestY[i,j];
+solve;
+
+for {(i,j) in {V,V}}{
+	if (y[i,j] == 1) then {
+		printf "%d -> %d | type(s) : ",i,j;
+		for {t in T} {
+			if (x[i,j,t] == 1) then printf "%d ",t;
+		}
+		printf " | flow %f \n",f[i,j];
+	}
+}

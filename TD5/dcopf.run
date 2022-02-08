@@ -1,0 +1,50 @@
+model dcopf.mod;
+data case24.dat;
+
+
+param min_cost;
+param min_configuration{L} binary;
+param N := 100;
+param iter default 0;
+
+fix {(a,b) in L} z[a,b] := 1;
+
+solve;
+let min_cost := cost;
+for {(a,b) in L} {
+	let min_configuration[a,b] := z[a,b];
+}
+
+param rand;
+param size;
+param chosen_index;
+param e_a default 0;
+param e_b default 0;
+
+param count := n;
+
+repeat while iter < N{
+	let e_a := ceil(Uniform(0,n));
+	let e_b := ceil(Uniform(0,n));
+	if (e_a, e_b) in L then {
+		if (z[e_a, e_b] == 0) or (n > 5 * count) then{
+			if z[e_a, e_b] == 1 then {
+				let count := count - 1;
+				fix z[e_a, e_b] := 0;
+			} else {
+				let count := count + 1;
+				fix z[e_a, e_b] := 1;
+			}
+			solve;
+			if cost < min_cost then {
+				let min_cost := cost;
+				for {(a,b) in L} {
+					let min_configuration[a,b] := z[a,b];
+				}
+			}
+			let iter := iter + 1;
+		}
+	} 
+}
+
+display min_cost;
