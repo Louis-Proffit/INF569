@@ -1,0 +1,9 @@
+include "mod.mod"
+data "dat.dat"
+
+option solver cplex;
+
+solve;
+display pf,pa,v;
+
+

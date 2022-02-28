@@ -1,0 +1,8 @@
+include "dcopf.mod"
+data "dat.dat"
+
+option solver cplex;
+
+solve;
+
+display theta,g,B;

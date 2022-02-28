@@ -1,0 +1,39 @@
+include "bo-dcopf.mod"
+data "dat.dat"
+
+option solver cplex;
+param min_a;
+param max_a;
+
+
+printf "Optimizing generation cost";
+objective generation_cost;
+solve;
+display generation_cost,active_generators;
+
+let max_a := active_generators;
+
+printf "Optimizing number of active generators";
+objective active_generators;
+solve;
+display generation_cost,active_generators;
+
+let min_a := active_generators;
+
+param k;
+let k := max_a;
+subject to max_active_generators : sum{b in B} z[b] <= k;
+
+param costs {min_a..max_a};
+
+for {iter in min_a..max_a}{
+	let k := iter;
+	objective generation_cost;
+	solve;
+	let costs[iter] := generation_cost;
+}
+
+for {iter in min_a..max_a}{
+	printf ">> Cost for %d generators maximum : %f\n",iter,costs[iter];
+}
+
